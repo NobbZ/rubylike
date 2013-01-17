@@ -7,10 +7,10 @@ Gem::Specification.new do |gem|
   gem.name          = "rubylike"
   gem.version       = Rubylike::VERSION
   gem.authors       = ["Norbert Melzer"]
-  gem.email         = ["timmelzer@googlemail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.email         = ["timmelzer@gmail.com"]
+  gem.description   = %q{This is a wrapper to libTCOD.}
+  gem.summary       = %q{This is a wrapper to libTCOD.}
+  gem.homepage      = "https://github.com/NobbZ/rubylike"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
