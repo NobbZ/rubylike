@@ -1,5 +1,6 @@
 *.gem
 *.rbc
+*.sublime-*
 .bundle
 .config
 .rvmrc
