@@ -1,6 +1,8 @@
 require "rubylike/version"
 require "ffi"
 
+# @since 0.0.1
+# @author Norbert Melzer <timmelzer@gmail.com>
 module Rubylike
 	extend FFI::Library
 
@@ -13,6 +15,5 @@ module Rubylike
 	end
 
 	require "rubylike/color"
-
-	
+	require "rubylike/console"
 end
