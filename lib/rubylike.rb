@@ -2,7 +2,7 @@ require "rubylike/version"
 require "ffi"
 
 # @since 0.0.1
-# @author Norbert Melzer <timmelzer@gmail.com>
+# @author Norbert Melzer <mailto:timmelzer@gmail.com>
 module Rubylike
 	extend FFI::Library
 
