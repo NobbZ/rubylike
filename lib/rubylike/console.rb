@@ -2,18 +2,18 @@
 
 module Rubylike
 
-	# Enumeration for the type of the renderer
-	enum :renderer, [
-		:glsl,
-		:opengl,
-		:sdl
-	]
-
 	# @author Norbert Melzer <mailto:timmelzer@gmail.com>
 	# @since 0.0.2
 	class Console < FFI::Struct
 		extend FFI::Library
 		extend Rubylike::Loader
+
+		# Enumeration for the type of the renderer
+		enum :renderer, [
+			:glsl,
+			:opengl,
+			:sdl
+		]
 		
 		# Creates a new Console
 		# @param [Integer] width The widht in characters of the Console

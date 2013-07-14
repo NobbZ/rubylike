@@ -19,6 +19,16 @@ module Rubylike
 				:g, :uint8,
 				:b, :uint8
 
+		# Create a custom color
+		# @todo Make this work with #new somehow
+		def self.create(r, g, b)
+			c = Color.new
+			c[:r] = r
+			c[:g] = g
+			c[:b] = b
+			c
+		end
+
 		def red
 			self[:r]
 		end
@@ -60,11 +70,20 @@ module Rubylike
 		end
 
 		# Scalar-multiply a color
-		# @param [Color] color The color that should be scalar-multiplied
+		# @param [Float] value The float that shall be multiplied with the color
 		# @return [Color] The resulting color
 		# @author Norbert Melzer <mailto:timmelzer@gmail.com>
-		def **(color)
-			Colors::multiply_scalar(self, color)
+		def **(value)
+			Colors::multiply_scalar(self, value)
+		end
+
+		# Interpolate to another color
+		# @param [Color] color The target color
+		# @param [Float] coefficient The targeting coefficient
+		# @return [Color] The resulting color
+		# @author Norbert Melzer  <mailto:timmelzer@gmail.com>
+		def interpolate(color, coefficient)
+			Colors::lerp(self, color, coefficient)
 		end
 	end
 
@@ -73,14 +92,6 @@ module Rubylike
 	module Colors
 		extend FFI::Library
 		extend Rubylike::Loader
-
-		def make_color(r, g, b)
-			c = Color.new
-			c[:r] = r
-			c[:g] = g
-			c[:b] = b
-			c
-		end
 
 		colorNames = %w(red flame orange amber yellow lime chartreuse green sea turquoise cyan sky azure blue han violet purple fuchsia magenta pink crimson)
 		saturationNames = %w(desaturated lightest lighter light dark darker darkest)
@@ -139,10 +150,17 @@ module Rubylike
 		
 		# Multiply 2 colors
 		# @param [Color] color1 The color which is multiplied by the other
-		# @param [Color] color2 The color which is multiplied with the first
+		# @param [Float] color2 A float value that the color is multiplied with
 		# @return [Color] The resulting color
 		# @author Norbert Melzer <mailto:timmelzer@gmail.com>
-		attach_function :multiply_scalar,	:TCOD_color_multiply_scalar,	[ Color.by_value, Color.by_value ], Color.by_value
-		attach_function :lerp,				:TCOD_color_lerp,				[ Color.by_value, Color.by_value ], Color.by_value
+		attach_function :multiply_scalar,	:TCOD_color_multiply_scalar,	[ Color.by_value, :float ],			Color.by_value
+		
+		# Interpolate between 2 colors
+		# @param [Color] color1 First color
+		# @param [Color] color2 Second color
+		# @param [Float] coeficient The interpolation coeffeicient
+		# @return [Color] The resulting color
+		# @author Norbert Melzer <mailto:timmelzer@gmail.com>
+		attach_function :lerp,				:TCOD_color_lerp,				[ Color.by_value, Color.by_value, :float ], Color.by_value
 	end
 end
